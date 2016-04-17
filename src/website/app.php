@@ -5,6 +5,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Igorw\Silex\ConfigServiceProvider;
 use MJanssen\Provider\RoutingServiceProvider;
 
+
 // Display all errors: should be on to prove that you are writing good code!
 error_reporting(E_ALL);
 
@@ -48,6 +49,36 @@ $app->register(new Moust\Silex\Provider\CacheServiceProvider(), array(
 $app->error(function (\Exception $e, $code) {
     return new Response($e->getMessage());
 });
+
+//Setup Doctrine ORM Service Provider
+$app->register(new Silex\Provider\DoctrineServiceProvider(), array(
+    'db.options' => array(
+        'driver'   => 'pdo_mysql',
+        'dbname'     => 'ssense',
+    ),
+));
+
+$app->register(new Dflydev\Silex\Provider\DoctrineOrm\DoctrineOrmServiceProvider, array(
+    "orm.em.options" => array(
+         "mappings" => array(
+            array(
+               "type"      => "annotation",
+               "namespace" => "SSENSE\HiringTest\Entity",
+               'path' => __DIR__ .'/Entity',
+              ),
+            ),
+         ),
+));
+
+
+// Setup Redis service provider
+$app->register(new Predis\Silex\ClientServiceProvider(), array(
+    'predis.parameters' => 'api.forecast.io/forecast/e60efe99b1bf9036ce9a154a5c1c10ee/45.30,73.35',
+    'predis.options'    => array(
+        'profile' => '3.0',
+        'prefix'  => 'weather',
+    ),
+));
 
 // Return the application
 return $app;

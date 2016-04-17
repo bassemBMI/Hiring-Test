@@ -11,6 +11,7 @@ abstract class BaseModel
      * @var \Doctrine\DBAL\Connection
      */
     protected $connexion;
+    protected $em;
     
     /**
      * Name of the table to use for the queries
@@ -27,6 +28,7 @@ abstract class BaseModel
     public function __construct(Application $app)
     {
         $this->connexion = $app['db'];
+        $this->em = $app['orm.em'];
     }
     
     /**
@@ -88,6 +90,19 @@ abstract class BaseModel
         if (empty($this->tableName)) {
             throw new \Exception('The tableName parameter is mandatory');    
         }
+    }
+    
+    /**
+     * Calculates the offset
+     *
+     * @param int $limit
+     * @param int $page
+     *
+     * @return int
+     */
+    protected function calculateOffset($limit, $page)
+    {
+        return ($page - 1) * $limit;
     }
 
 }

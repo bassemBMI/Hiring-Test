@@ -1,0 +1,25 @@
+{% extends "common/layout.html" %}
+
+{% block content %}
+<h3>List of Canadian products</h3>
+
+<table class="table table-striped">
+    <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Price</th>
+        <th>Quantity</th>
+    </tr>
+    {% for product in products %}
+    <tr>
+        <td>{{product.getId()}}</td>
+        <td>{{product.getName()}}</td>
+        <td>
+            {{product.getPrice()[0].getPrice()}}
+            &nbsp;&nbsp;{{product.getPrice()[0].getCountry().getCurrency().getCode()}}
+        </td>
+        <td>{{product.getStock().getQuantity()}}</td>
+    </tr>
+    {% endfor %}
+</table>
+{% endblock %}

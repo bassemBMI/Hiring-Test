@@ -13,12 +13,12 @@
         <div class="header clearfix">
           <nav>
             <ul class="nav nav-pills pull-right">
-              <li role="presentation" class="active"><a href="/">Home</a></li>
-              <li role="presentation"><a href="#">Canadian Products</a></li>
-              <li role="presentation"><a href="#">Montreal Weather</a></li>
+              <li role="presentation" class="{{ app.request.attributes.get('_route') == 'homepage' ? 'active' }}"><a href="/">Home</a></li>
+              <li role="presentation" class="{{ app.request.attributes.get('_route') == 'caproducts' ? 'active' }}"><a href="/products/ca">Canadian Products</a></li>
+              <li role="presentation" class="{{ app.request.attributes.get('_route') == 'mtlweather' ? 'active' }}"><a href="/weather/mtl">Montreal Weather</a></li>
             </ul>
           </nav>
-          <h3 class="text-muted">SSENSE - IT</h3>
+          <h3 class="text-muted">SSENSE - IT {{app.request.attributes.get('_route') }}</h3>
         </div>
   
         {% block content %} {% endblock %}
