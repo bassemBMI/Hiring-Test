@@ -12,8 +12,8 @@
             <h5>{{day.summary}}</h5>
           </div>
           <div class="panel-body">
-            <h3>Max: {{day.temperatureMax|number_format(0, '.', ',')}}&deg;C</h3>
-            <h3>Min: {{day.temperatureMin|number_format(0, '.', ',')}}&deg;C</h3>
+            <h3>Max: {{day.getMaxTemperature()|number_format(0, '.', ',')}}&deg;C</h3>
+            <h3>Min: {{day.getMinTemperature()|number_format(0, '.', ',')}}&deg;C</h3>
             <h5>Humidity: {{day.humidity * 100}}%</h5>
           </div>
         </div>
